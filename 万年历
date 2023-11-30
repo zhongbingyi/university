@@ -1,0 +1,125 @@
+#include <stdio.h>
+#include <stdlib.h>
+int yd1(int a)
+{
+    if((a%4==0&&a%100!=0)||a%400==0)
+    {
+        return 366;
+    }
+    else
+    return 365;
+}
+int sb(int year,int m,int d)
+{
+    int s[12]={31,28,31,30,31,30,31,31,30,31,30};
+    int sm=0,i,a,b;
+    for(i=1990;i<year;i++)
+    {
+        sm+=yd1(i);
+    }
+    if(yd1(year)==366)
+    {
+        s[1]=29;
+    }
+    for(i=1;i<m;i++)
+    {
+        sm+=s[i-1];
+    }
+    return a=((sm+d)%7+2)%7;
+
+
+}
+void firstday(int year,int m)
+{
+    int s[12]={31,28,31,30,31,30,31,31,30,31,30,31};
+    int sm=0,i,a,b;
+    for(i=1990;i<year;i++)
+    {
+        sm+=yd1(i);
+    }
+    if(yd1(year)==366)
+    {
+        s[1]=29;
+    }
+    for(i=1;i<m;i++)
+    {
+        sm+=s[i-1];
+    }
+    a=(sm%7+2)%7;//第一天星期几
+    if(m==1)
+    printf(" January           %d\n",year);
+    if(m==2)
+    printf(" February          %d\n",year);
+    if(m==3)
+    printf(" March             %d\n",year);
+    if(m==4)
+    printf(" April             %d\n",year);
+    if(m==5)
+    printf(" May               %d\n",year);
+    if(m==6)
+    printf(" July              %d\n",year);
+    if(m==7)
+    printf(" June              %d\n",year);
+    if(m==8)
+    printf(" August            %d\n",year);
+    if(m==9)
+    printf(" September         %d\n",year);
+    if(m==10)
+    printf(" October           %d\n",year);
+    if(m==11)
+    printf(" November          %d\n",year);
+    if(m==12)
+    printf(" December          %d\n",year);
+    printf("Sun Mon Tue Wed Thu Fri Sat\n");
+    for(i=1;i<=(s[m-1]+a-1);i++)
+    {
+        if(i<a)
+        {
+           printf("    ") ;
+        }
+        if(i>=a)
+        {
+            printf("%3d ",i-a+1);
+        }
+        if(i%7==0)
+            printf("\n");
+    }
+}
+int main()
+{
+    int a,b,c,n,i;
+    printf("            Menu\n");
+    printf("==============================\n");
+    printf("1.Show a year's calender\n");
+    printf("2.Show a month's calender\n");
+    printf("3.Show the day of the date\n");
+    printf("4.Quit the system\n");
+    printf("==============================\n");
+    printf("Please input your choice:");
+    scanf("%d",&n);
+    switch(n)
+    {
+    case 1:
+        printf("Please input the year:");
+        scanf("%d",&a);
+        for(i=1;i<=12;i++)
+        {
+            firstday(a,i);
+            printf("\n\n");
+        }
+        break;
+    case 2:
+        printf("Please input the year,month:");
+        scanf("%d %d",&a,&b);
+        firstday(a,b);
+        break;
+    case 3:
+        printf("Please input the year,month,day:");
+        scanf("%d %d %d",a,b,c);
+        printf("%d",sb(a,b,c));
+        break;
+    case 4:
+        break;
+    }
+    return 0;
+}
